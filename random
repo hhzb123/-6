@@ -1,0 +1,44 @@
+#include<iostream>
+#include<time.h>
+#include<stdlib.h>
+using namespace std;
+class random                       //作为父类生成随机数 
+{  protected:
+	int num[20];
+	public:
+		random()
+		{  srand(time(0));
+			for(int i=1;i<20;i++)
+			{
+				num[i]=rand()%10;
+			}
+		} 
+} ; 
+class randomnumber:public random //子类生成随机数。继承了父类的随机数，在构造函数中调用了父类生成随机数。有公共函数display，供输出随机数使用。 
+{   public:
+	randomnumber():random()
+	{	
+	}
+	void display(int i)
+	{
+		cout<<num[i];
+	}
+}; 
+class randomoperation:public random//子类生成随机运算符号，通过父类的随机数与4进行求余运算决定运算符号，display用于输出运算符。 
+{   
+	char op[20];
+	public:
+		randomoperation():random()
+		{    for(int i=1;i<20;i++)
+		{
+			if(num[i]%4==1) op[i]='+';
+			if(num[i]%4==2 )op[i]='-';
+			if(num[i]%4==3) op[i]='*';
+			if(num[i]%4==0) op[i]='/';
+		}
+		}
+		void display(int i)
+{
+       cout<<op[i];
+		}
+};
